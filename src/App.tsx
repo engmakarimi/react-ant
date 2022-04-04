@@ -8,7 +8,7 @@ const  App = ()  =>{
   }
   return (
    <>
-  <Button >click</Button>
+  <Button type='primary' >click</Button>
   <br/>
   test <InputNumber min={1} max={10} defaultValue={3} onChange={onChange} />
    </>

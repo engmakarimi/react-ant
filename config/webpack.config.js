@@ -549,9 +549,7 @@ module.exports = function (webpackEnv) {
                 { loader: "css-loader" },
                 {
                   loader: "less-loader", options: {
-                    // modifyVars: {
-                    //   '@primary': '#2ea44f'
-                    // },
+                    // modifyVars:path.join(__dirname, './src/theme/vars.less'),
                     lessOptions: {
                       javascriptEnabled: true
                     }
