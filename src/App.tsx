@@ -1,12 +1,16 @@
-import { Button } from 'antd';
+import { Button, InputNumber } from 'antd';
 import './App.css';
 
-function App() {
+const  App = ()  =>{
+
+  function onChange(value:number) {
+    console.log('changed', value);
+  }
   return (
    <>
-    <p>test</p>  
-     <Button type='primary'> btn test </Button>
-     <Button type="dashed">Dashed Button</Button>
+  <Button >click</Button>
+  <br/>
+  test <InputNumber min={1} max={10} defaultValue={3} onChange={onChange} />
    </>
   );
 }
