@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ReactChildren, Suspense, useEffect } from 'react';
 import { LazyStyle, Theme } from './types';
 import LoadingIndicator from './LoadingIndicator';
+import DarkTheme from '../themes/LightTheme';
 
 export function useApplyStyles(styles: LazyStyle): void {
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function DynamicTheme({ themes, value }: DynamicThemeProps) {
 
   return (
     <Suspense fallback={<LoadingIndicator tip="loading" />}>
-      <Component />
+      <DarkTheme />
     </Suspense>
   );
 }
