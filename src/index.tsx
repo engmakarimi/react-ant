@@ -2,7 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 //import ReactDOM from "react-dom/client";
 import App from "./App";
-import "../node_modules/antd/dist/antd.less";
+//import "../node_modules/antd/dist/antd.less";
+//import "./theme/color.less";
+//import "./theme/dark.less";
+import "./theme/compact.less";
+
 import reportWebVitals from "./reportWebVitals";
 import { ConfigProvider } from "antd";
 import { Theme } from "antd/lib/config-provider/context";
