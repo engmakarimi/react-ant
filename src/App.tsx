@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { Select } from 'antd';
+import { Button, Select } from 'antd';
 import './App.css';
 
 import DynamicTheme from './theming';
 import { themes } from './themes';
+import DemoTable from './DemoTable';
 
 const defaultTheme = themes[0];
 
@@ -18,7 +19,7 @@ const options = themes.map((theme) => ({
     (option) => setThemeId(option as string),
     []
   );
-
+    
   return (
     <>
       <DynamicTheme themes={themes} value={themeId} />
@@ -28,7 +29,10 @@ const options = themes.map((theme) => ({
         options={options}
         onSelect={selectThemeId}
       />
-     
+      <DemoTable />
+
+      <Button type="primary" >test</Button>
+
     </>
   );
 }

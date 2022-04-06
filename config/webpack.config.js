@@ -67,11 +67,11 @@ const useTailwind = fs.existsSync(
 const swSrc = paths.swSrc;
 
 // style files regexes
-const cssRegex = /\.css$/;
+const cssRegex = /\.css$/i;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
-const lessRegex = /\.less$/;
+const lessRegex = /\.less$/i;
 
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
@@ -85,6 +85,18 @@ const hasJsxRuntime = (() => {
     return false;
   }
 })();
+
+
+const lessLoader = {
+  loader: 'less-loader',
+  options: {
+    lessOptions: {
+      javascriptEnabled: true,
+      injectType: 'lazyStyleTag'
+    },
+    sourceMap: true, 
+  },
+};
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -545,19 +557,40 @@ module.exports = function (webpackEnv) {
             {
               test: lessRegex,
               use: [
+                 // compiles Less to CSS
                 { loader: "style-loader" },
                 { loader: "css-loader" },
                 {
                   loader: "less-loader", options: {
                     // modifyVars:path.join(__dirname, './src/theme/vars.less'),
                     lessOptions: {
-                      javascriptEnabled: true
+                      javascriptEnabled: true,
+                      injectType: 'lazyStyleTag' 
                     }
                   }
                 }
               ]
             },
-          
+            {
+              test: /\.theme\.(less|css)$/i,
+              use: [
+                {
+                  loader: 'style-loader',
+                  options: { injectType: 'lazyStyleTag' }
+                },
+                'css-loader',
+                lessLoader
+              ]
+            },
+            {
+              test: /\.(less|css)$/,
+              exclude: /\.theme\.(less|css)$/i,
+              use: [
+                'style-loader',
+                'css-loader',
+                lessLoader
+              ]
+            },
             
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.

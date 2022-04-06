@@ -11,19 +11,19 @@ export const themes: Theme[] = [
   {
     id: 'lightCompact',
     displayName: 'Light Compact',
-    filename: 'light.theme.less',
+    filename: 'light-compact.theme.less',
     component: lazy(() => import('../themes/LightCompactTheme'))
   },
   {
     id: 'dark',
     displayName: 'Dark',
-    filename: 'light.theme.less',
+    filename: 'dark.theme.less',
     component: lazy(() => import('../themes/DarkTheme')),
   },
   {
     id: 'darkCompact',
     displayName: 'Dark Compact',
-    filename: 'light.theme.less',
+    filename: 'dark-compact.theme.less',
     component: lazy(() => import('../themes/DarkCompactTheme'))
   }
 ];
