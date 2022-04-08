@@ -612,7 +612,9 @@ module.exports = function (webpackEnv) {
                   }
                 },
                 {
-                  loader: "css-loader"
+                  loader: "css-loader",
+                  options: {  modules: {
+                          mode: 'global',}}
                 },
                 {
                   loader: "less-loader", options: {
@@ -627,15 +629,15 @@ module.exports = function (webpackEnv) {
               ]
             },
            
-            // {
-            //   test: /\.(less|css)$/i,
-            //   exclude: /\.module\.(less|css)$/i,
-            //   use: [
-            //     'style-loader',
-            //     'css-loader',
-            //     lessLoader
-            //   ]
-            // },
+            {
+              test: /\.(less|css)$/i,
+              exclude: /\.module\.(less|css)$/i,
+              use: [
+                'style-loader',
+                'css-loader',
+                lessLoader
+              ]
+            },
 
 
             {
@@ -646,7 +648,7 @@ module.exports = function (webpackEnv) {
                 },
                 {
                   loader: 'css-loader', options: {
-                    importLoaders: 2,
+                    
                   }
                 },
                 {
