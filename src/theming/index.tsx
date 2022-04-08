@@ -7,12 +7,11 @@ import DarkTheme from '../themes/DarkTheme';
 
 export function useApplyStyles(styles: any): void {
   useEffect(() => {
-  const style=(styles as LazyStyle )
-    console.log('in useEffect');
-    console.log(style);
+  // const style=(styles as LazyStyle )
+    
     styles?.use();
   
-   return () => style.unuse()
+   return () => styles?.unuse()
       
   });
 }

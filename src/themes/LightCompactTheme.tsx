@@ -5,7 +5,7 @@ import styles from './light-compact.theme.module.less';
 
 export default function LightCompactTheme()  {
   useApplyStyles(styles);
-  return (
-    <div >LightCompactTheme</div>
-  );
+  return null;
+    
+ 
 }
