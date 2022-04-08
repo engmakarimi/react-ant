@@ -71,7 +71,9 @@ const cssRegex = /\.css$/i;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
-const lessRegex = /\.less$/i;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
+
 
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
@@ -192,6 +194,10 @@ module.exports = function (webpackEnv) {
           loader: require.resolve(preProcessor),
           options: {
             sourceMap: true,
+            lessOptions:{
+               injectType: "lazyStyleTag"  ,
+              javascriptEnabled: true,
+            },
           },
         }
       );
@@ -554,37 +560,87 @@ module.exports = function (webpackEnv) {
                 'sass-loader'
               ),
             },
+
+
+            // {
+            //   test: lessRegex,
+            //   exclude: lessModuleRegex,
+            //   use: getStyleLoaders(
+            //     {
+            //       importLoaders: 2,
+            //       sourceMap: isEnvProduction
+            //         ? shouldUseSourceMap
+            //         : isEnvDevelopment,
+            //       modules: {
+            //         mode: 'icss',
+            //       },
+            //     },
+            //     'less-loader'
+            //   ),
+            //   // Don't consider CSS imports dead code even if the
+            //   // containing package claims to have no side effects.
+            //   // Remove this when webpack adds a warning or an error for this.
+            //   // See https://github.com/webpack/webpack/issues/6571
+            //   sideEffects: true,
+            // },
+            // // Adds support for CSS Modules, but using SASS
+            // // using the extension .module.scss or .module.sass
+            // {
+            //   test: lessModuleRegex,
+            //   use: getStyleLoaders(
+            //     {
+            //       importLoaders: 2,
+            //       // injectType: "lazyStyleTag",
+            //       sourceMap: isEnvProduction
+            //         ? shouldUseSourceMap
+            //         : isEnvDevelopment,
+            //       modules: {
+            //         mode: 'local',
+            //         getLocalIdent: getCSSModuleLocalIdent,
+            //       },
+                
+            //     },
+            //     'less-loader'
+            //   ),
+            // },
+
+
+
+
             {
-              test: lessRegex,
+              test:  /\.module\.(less|css)$/,
               use: [
                  // compiles Less to CSS
-                { loader: "style-loader" },
+                { loader: "style-loader",options:{
+                  injectType: 'lazyStyleTag' 
+                } },
                 { loader: "css-loader" },
                 {
                   loader: "less-loader", options: {
+                    sourceMap: true,
                     // modifyVars:path.join(__dirname, './src/theme/vars.less'),
                     lessOptions: {
                       javascriptEnabled: true,
-                      injectType: 'lazyStyleTag' 
+                      
                     }
                   }
                 }
               ]
             },
-            {
-              test: /\.theme\.(less|css)$/i,
-              use: [
-                {
-                  loader: 'style-loader',
-                  options: { injectType: 'lazyStyleTag' }
-                },
-                'css-loader',
-                lessLoader
-              ]
-            },
+            // {
+            //   test: /\.module\.(less|css)$/,
+            //   use: [
+            //     {
+            //       loader: 'style-loader',
+            //       options: { injectType: 'lazyStyleTag' }
+            //     },
+            //     'css-loader',
+            //     lessLoader
+            //   ]
+            // },
             {
               test: /\.(less|css)$/,
-              exclude: /\.theme\.(less|css)$/i,
+              exclude: /\.module\.(less|css)$/i,
               use: [
                 'style-loader',
                 'css-loader',
